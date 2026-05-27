@@ -186,3 +186,47 @@ console.log(data)
 // let dato = 'Pedro'
 // let dato = 'Juan'
 
+// metodos nativos de los objectos
+
+const producto = {
+  nombre: 'Notebook gamer',
+  categoria: 'Computacion',
+  disponibilidad: true,
+  stock: 20,
+  precio: 899.99
+}
+
+console.warn('// ! Object.keys()')
+console.log(Object.keys(producto))
+console.warn('//! Object.values()')
+console.log(Object.values(producto))
+console.warn('//! Object.entries()')
+console.log(Object.entries(producto))
+
+// Matriz
+
+const matriz = [
+  [2,5],
+  [8,3]
+]
+
+const datos = [
+  ['Luis', 50, 'acuario'], // persona 1
+  ['Pedro', 33, 'geminis'] // persona 2
+]
+
+console.log(matriz)
+console.log(datos)
+
+console.warn('// ! .hasOwnProperty()')
+console.log(producto.hasOwnProperty('nombre'))
+console.log(producto.hasOwnProperty('apellido'))
+
+for (const key in producto) {
+  
+  if (!Object.hasOwn(producto, key)) continue;
+  
+  const element = producto[key];
+  console.log(element)
+  
+}
