@@ -1,140 +1,42 @@
 // eslint-disable-next-line no-unused-vars
 import * as bootstrap from 'bootstrap'; // Agrego los scripts de bootstrap
 import './style.css';
-import Auto from './entidades/Auto';
-import CuentaBancaria from './entidades/Cuentabancaria';
 
-/* 
-  Pilares del paradigma orientado a objetos
+// ! Cookies
+// Son pequeños archivos que el navegador guardar y se envían automaticamente al servidor dentro del request. se utilizan para guardar información de sesión, preferencias de usuario, etc.
 
-  1. Abstracción
+// Ocupan 4 kb, clave valor, fecha de expiración, dominio, ruta, etc.
 
-      Aislar lo importante. Un “Usuario” no necesita saber cuántas pestañas tiene el navegador.
+// Pueden ser HttpOnly, lo que signifca que no pueden ser accedidas por JavaScript, lo que hace más seguro su uso para almacenar.
 
-  2. Encapsulamiento
+// * Autenticación basada en sesión
+// * Tokens de sesión (Mejor que localstorage)
+// * Preferencias minimas del usuario.
 
-      Proteger y ocultar datos internos.
-      JavaScript permite campos privados (#campo).
+//console.log(document.cookie)
+document.cookie = "usuario=Maxi; path=/; max-age=3600;"
+console.log(document.cookie)   
 
-  3. Herencia
-
-        Una clase “hija” extiende a otra y reutiliza comportamiento.
-
-  4. Polimorfismo
-
-    Diferentes clases pueden responder distinto al mismo método.
-
-*/
-
-// ! 1. Abstracción (Simplificación de la realidad)
-// * Si modelo las caracteristicas de un AUto, no me interesa la presi'on exacta del pistón... la marca la velocidad y métodos basicos
-// Un clase es una simplificación de la realidad. Molde que permite crear a partir multiples Autos.
-// * El constructor es una método (acción) especial que se ejecuta ni bien quiero crear un objeto.
-// Clase (Modelo)
-// Instancia de la clase (Objeto) -> El Auto concreto.
-
-const a1 = new Auto('Ford', 0);
-console.log(a1);
-a1.acelerar();
-a1.acelerar();
-a1.acelerar();
-a1.acelerar();
-a1.acelerar();
-a1.acelerar();
-console.log(a1.marca);
-console.log(a1.velocidad);
-a1.frenar();
-a1.frenar();
-a1.frenar();
-console.log(a1.marca);
-console.log(a1.velocidad);
-
-// ! 1. Encapsulamiento
-// * Es proteger los datos internos y que nadie meta mano donde no debe
-// * JS permite propiedades ocultas #
-
-const c1 = new CuentaBancaria();
-console.log(c1.verSaldo()); /* GETTER */
-// SETTER
-c1.depositar(1_000_000);
-
-console.log(c1.verSaldo());
-
-// ! HERENCIA
-
-// tenemos una clase base animal
-// Un perro es un animal, pero tiene comportamientos propios
-
-class animal {
-  constructor(nombre) {
-    this.nombre = nombre;
-  }
-  hacerSonido() {
-    console.log('Sonido generico!');
-  }
+function getCookie(nombre) {
+    return document.cookie.
+        split('; ').find(row => row.startsWith(nombre + '='))?.split("=")[1];
 }
 
-class Perro extends animal {
-  // sobreescribo el metodo hacer sonido para que el perro haga un sonido especifico
-  hacersonido() {
-    console.log('Gua gua!');
-  }
-}
+console.log(getCookie("theme"))
 
-const animal = new animal('Mascota');
-console.log(animal.nombre);
-animal.hacerSonido();
+// ! LocalStorage
+// Almacenamiento local persistente del lado del navegador. Dentro del navegador.
 
-const perrito = new Perro('Firulais');
-console.log(perrito.nombre);
-perrito.hacerSonido();
+// Ocupan 5 y 10 MB. Se almacena y persiste incluso cerrando la pestaña o el nevegador. No se envía al servidor. La info almacenada queda localmente en el cliente (navegador)
+// También es vulnerable a los ataques XSS.
 
-//  ! Polimorfismo
+// * Preferncias de UI (tema, idioma)
+// * Estado de la ppa que no es sesible.
+// * Cache simple de datos públicos.
 
-class Notificador {
-  notificar() {
-    console.log('Notificacion genereica');
-  }
-}
-class NotificacionEmail extends Notificador {
-  notificar() {
-    console.log('Eviando correo');
-  }
-}
+// ! sessionStorage. 
+// Ocupan 5 y 10 MB. Almacenamiento local del lado del navegador pero solo durante la sesión actual de navegador. Que si cierro la pestaña o el navegador se borra la información. No se envía al servidor.
 
-const notiEmail = new NotificacionEmail();
-notiEmail.notificar();
-
-class NotificadorWhatsapp extends Notificador {
-  notificar() {
-    console.log('Enviado mensaje de Whatsapp');
-  }
-}
-
-const notiWhatsapp = new NotificadorWhatsapp();
-notiWhatsapp.notificar();
-
-// EJEMPLO
-
-class componente {
-  constructor(selector) {
-    this.container = document.querySelector(selector);
-    if (!this.container) {
-      throw new error('No se encontro el elemento');
-    }
-  }
-
-  render() {
-    throw new Error('El metodo render debe ser implementado por la clase hija');
-  }
-}
-
-class Navbar extends Componente {
-  constructor(selector) {
-    super(selector);
-    this.user = null;
-  }
-}
-
-const navbar = new Navbar('#navbar');
-navbar.render();
+// * Estados temporales
+// * Formularios parcialmente completados
+// * Flujo de varios pasos.
