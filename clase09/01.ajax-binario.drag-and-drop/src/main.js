@@ -9,3 +9,33 @@ inputFile.addEventListener('change', (e) => {
   const archivo = e.target.files[0];
   console.dir(archivo);
 });
+
+// drag and drop
+const dropArea = document.querySelector('#drop-area');
+
+dropArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  console.log('dragover');
+});
+
+dropArea.addEventListener('dragleave', (e) => {
+  e.preventDefault();
+  console.log('dragleave');
+});
+
+dropArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  console.log('drop');
+});
+
+dropArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+});
+
+dropArea.addEventListener('dragleave', (e) => {
+  e.preventDefault();
+});
+
+dropArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+});
