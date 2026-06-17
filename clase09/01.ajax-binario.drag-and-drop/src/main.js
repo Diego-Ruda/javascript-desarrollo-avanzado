@@ -28,14 +28,14 @@ dropArea.addEventListener('drop', (e) => {
   console.log('drop');
 });
 
-dropArea.addEventListener('dragover', (e) => {
+document.addEventListener('dragover', (e) => {
   e.preventDefault();
 });
 
-dropArea.addEventListener('dragleave', (e) => {
+document.addEventListener('dragleave', (e) => {
   e.preventDefault();
 });
 
-dropArea.addEventListener('drop', (e) => {
+document.addEventListener('drop', (e) => {
   e.preventDefault();
 });
